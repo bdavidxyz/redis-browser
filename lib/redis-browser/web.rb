@@ -52,9 +52,12 @@ module RedisBrowser
     end
 
     def browser
-      conn = settings.connections[params[:connection]]
-      conn = {url: conn} unless conn.is_a?(Hash)
-      @browser ||= Browser.new(conn)
+      connection = if ENV['REDIS_URL']
+        ENV['REDIS_URL'].sub(/\Aredis:\/\//, '')
+      else
+        params[:connection]
+      end
+      @browser ||= Browser.new(connection, params[:database])
     end
   end
 end
