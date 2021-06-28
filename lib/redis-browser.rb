@@ -11,7 +11,7 @@ require 'redis-browser/web'
 module RedisBrowser
   DEFAULTS = {
     'connections' => {
-      'default' => 'redis://127.0.0.1:6379/0'
+      'default' => ENV['REDIS_URL'] || 'redis://127.0.0.1:6379/0'
     }
   }
 
